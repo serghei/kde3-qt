@@ -50,6 +50,7 @@
 #ifndef QT_NO_STL
 #include <iterator>
 #include <list>
+#include <cstddef>
 #endif
 
 //#define QT_CHECK_VALUELIST_RANGE

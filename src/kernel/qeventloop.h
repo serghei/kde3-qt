@@ -44,6 +44,10 @@
 #include "qsocketnotifier.h"
 #endif // QT_H
 
+#if defined(QT_USE_GLIBMAINLOOP)
+#include <glib.h>
+#endif // QT_USE_GLIBMAINLOOP
+
 class QEventLoopPrivate;
 class QSocketNotifier;
 class QTimer;
@@ -95,6 +99,22 @@ public:
 
     virtual void wakeUp();
 
+#if defined(QT_USE_GLIBMAINLOOP)	
+	
+    // glib main loop support
+
+    /* internal: used to fit glib-main-loop gsource concept */
+
+    bool gsourcePrepare(GSource *gs, int * timeout);
+    bool gsourceCheck(GSource * gs);
+    bool gsourceDispatch(GSource * gs);
+
+    bool processX11Events();
+
+    // end glib main loop support
+	
+#endif //QT_USE_GLIBMAINLOOP
+	
 signals:
     void awake();
     void aboutToBlock();

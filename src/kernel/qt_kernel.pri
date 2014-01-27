@@ -21,7 +21,7 @@ kernel {
 		  $$KERNEL_H/qdrawutil.h \
 		  $$KERNEL_H/qdropsite.h \
 		  $$KERNEL_H/qevent.h \
-		  $$KERNEL_H/qeventloop.h\
+		  $$KERNEL_H/qeventloop.h \
 		  $$KERNEL_P/qeventloop_p.h \
 		  $$KERNEL_H/qfocusdata.h \
 		  $$KERNEL_H/qfont.h \
@@ -99,6 +99,10 @@ kernel {
 		  $$KERNEL_CPP/qfontengine_p.h \
 		  $$KERNEL_CPP/qtextlayout_p.h
 
+		  glibmainloop {
+		  		HEADERS+=$$KERNEL_P/qeventloop_glib_p.h
+		  } 
+		  
 	win32:SOURCES += $$KERNEL_CPP/qapplication_win.cpp \
 		  $$KERNEL_CPP/qclipboard_win.cpp \
 		  $$KERNEL_CPP/qcolor_win.cpp \
@@ -128,7 +132,6 @@ kernel {
 			  $$KERNEL_CPP/qcursor_x11.cpp \
 			  $$KERNEL_CPP/qdnd_x11.cpp \
 			  $$KERNEL_CPP/qdesktopwidget_x11.cpp \
-			  $$KERNEL_CPP/qeventloop_x11.cpp \
 			  $$KERNEL_CPP/qfont_x11.cpp \
 			  $$KERNEL_CPP/qinputcontext_x11.cpp \
 			  $$KERNEL_CPP/qmotifdnd_x11.cpp \
@@ -140,6 +143,12 @@ kernel {
 			  $$KERNEL_CPP/qwidget_x11.cpp \
 			  $$KERNEL_CPP/qwidgetcreate_x11.cpp \
 		          $$KERNEL_CPP/qfontengine_x11.cpp
+             glibmainloop {
+                  SOURCES += $$KERNEL_CPP/qeventloop_x11_glib.cpp
+             } else {
+                  SOURCES += $$KERNEL_CPP/qeventloop_x11.cpp
+             }
+
 	}
 
 	!x11:mac {
@@ -166,8 +175,13 @@ kernel {
              DEFINES += QMAC_ONE_PIXEL_LOCK
         } else:unix {
 	   SOURCES += $$KERNEL_CPP/qprinter_unix.cpp \
-	              $$KERNEL_CPP/qpsprinter.cpp \
-		      $$KERNEL_CPP/qeventloop_unix.cpp
+	              $$KERNEL_CPP/qpsprinter.cpp
+           glibmainloop {
+              SOURCES += $$KERNEL_CPP/qeventloop_unix_glib.cpp
+           } else {
+	      SOURCES += $$KERNEL_CPP/qeventloop_unix.cpp
+           }
+
         }
 	unix:SOURCES += $$KERNEL_CPP/qprocess_unix.cpp \
 		        $$KERNEL_CPP/qthread_unix.cpp

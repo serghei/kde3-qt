@@ -191,3 +191,11 @@ wince-* {
 		   $$CODECS_CPP/qtextcodecplugin.cpp \
 		   $$WIDGETS_CPP/qwidgetplugin.cpp 
 }
+
+glibmainloop {
+	DEFINES += QT_USE_GLIBMAINLOOP
+	QMAKE_CFLAGS += $$QMAKE_CFLAGS_GLIB
+	QMAKE_CXXFLAGS += $$QMAKE_CFLAGS_GLIB
+        LIBS += $$QMAKE_LIBS_GLIB
+}
+

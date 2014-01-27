@@ -49,6 +49,10 @@
 //
 //
 
+#if defined(QT_USE_GLIBMAINLOOP)
+#include "qeventloop_glib_p.h"  // use a different header file!!!
+#else
+
 #ifndef QT_H
 #include "qplatformdefs.h"
 #endif // QT_H
@@ -146,5 +150,7 @@ public:
 #endif // Q_WS_WIN
 
 };
+
+#endif // !QT_USE_GLIBMAINLOOP
 
 #endif // QEVENTLOOP_P_H

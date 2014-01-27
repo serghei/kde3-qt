@@ -284,6 +284,8 @@ CFG_USER_BUILD_KEY=
 CFG_ACCESSIBILITY=auto
 CFG_DLOPEN_OPENGL=no
 CFG_ENDIAN=auto
+CFG_GLIBMAINLOOP=no
+CFG_LIBGLIBMAINLOOP=
 D_FLAGS=
 I_FLAGS=
 L_FLAGS=
@@ -365,7 +367,7 @@ while [ "$#" -gt 0 ]; do
 	VAL=no
 	;;
     #Qt style yes options
-    -incremental|-qvfb|-profile|-shared|-static|-sm|-thread|-xinerama|-xshape|-tablet|-pch|-stl|-ipv6|-freetype|-big-codecs|-xcursor|-xrandr|-xrender|-xft|-xkb|-nis|-cups|-largefile|-h|-help|-v|-verbose|-debug|-release|-fast|-version-script|-dlopen-opengl)
+    -incremental|-qvfb|-profile|-shared|-static|-sm|-thread|-xinerama|-xshape|-tablet|-pch|-stl|-ipv6|-freetype|-big-codecs|-xcursor|-xrandr|-xrender|-xft|-xkb|-nis|-cups|-largefile|-h|-help|-v|-verbose|-debug|-release|-fast|-version-script|-dlopen-opengl|-glibmainloop)
 	VAR=`echo $1 | sed "s,^-\(.*\),\1,"`
 	VAL=yes
 	;;
@@ -860,6 +862,13 @@ while [ "$#" -gt 0 ]; do
     cups)
 	if [ "$VAL" = "yes" ] || [ "$VAL" = "no" ]; then
 	    CFG_CUPS="$VAL"
+	else
+	    UNKNOWN_OPT=yes
+	fi
+	;;
+    glibmainloop)
+	if [ "$VAL" = "yes" ] || [ "$VAL" = "no" ]; then
+	    CFG_GLIBMAINLOOP="$VAL"
 	else
 	    UNKNOWN_OPT=yes
 	fi
@@ -2928,6 +2937,19 @@ if [ "$CFG_PNG" = "no" ]; then
 elif [ "$CFG_PNG" = "yes" ]; then
     QMAKE_CONFIG="$QMAKE_CONFIG png"
 fi
+if [ "$CFG_GLIBMAINLOOP" = "no" ]; then
+    QMAKE_CONFIG="$QMAKE_CONFIG no-glibmainloop"
+elif [ "$CFG_GLIBMAINLOOP" = "yes" ]; then
+    QMAKE_CONFIG="$QMAKE_CONFIG glibmainloop"
+
+    GLIB_CFLAGS="`pkg-config --cflags glib-2.0`"
+    QMAKE_VARS="$QMAKE_VARS \"QMAKE_CFLAGS_GLIB=$GLIB_CFLAGS\""
+
+    GLIB_LINKFLAG="`pkg-config --libs glib-2.0`"
+    QMAKE_VARS="$QMAKE_VARS \"QMAKE_LIBS_GLIB=$GLIB_LINKFLAG\""
+    
+
+fi
 if [ "$CFG_GIF" = "no" ]; then
     QMAKE_CONFIG="$QMAKE_CONFIG no-gif"
 elif [ "$CFG_GIF" = "yes" ]; then
@@ -3480,6 +3502,11 @@ if [ "$CFG_PNG" = "no" ]; then
     echo "PNG support ......... $CFG_PNG"
 else
     echo "PNG support ......... $CFG_PNG ($CFG_LIBPNG)"
+fi
+if [ "$CFG_GLIBMAINLOOP" = "no" ]; then
+    echo "Glib main loop support ......... $CFG_GLIBMAINLOOP"
+else
+    echo "Glib main loop support ......... $CFG_GLIBMAINLOOP ($CFG_LIBGLIBMAINLOOP)"
 fi
 echo "zlib support ........ $CFG_ZLIB"
 if [ "$PLATFORM_QWS" = "yes" ]; then

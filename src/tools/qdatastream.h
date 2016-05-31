@@ -53,6 +53,7 @@ public:
     QDataStream();
     QDataStream( QIODevice * );
     QDataStream( QByteArray, int mode );
+    QDataStream( QByteArray*, int mode ); // Qt5 compat
     virtual ~QDataStream();
 
     QIODevice	*device() const;

@@ -87,6 +87,7 @@ public:
 
     const char  *name() const;
     const char  *name( const char * defaultName ) const;
+    const char *objectName() const { return name(); } // Qt5 compat
 
     virtual void setName( const char *name );
     bool	 isWidgetType()	  const { return isWidget; }

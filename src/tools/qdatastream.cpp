@@ -327,6 +327,20 @@ QDataStream::QDataStream( QByteArray *a, int mode ) // Qt5 compat
 
 }
 
+QDataStream::QDataStream( const QByteArray &a ) // Qt5 compat
+{
+    if ( systemWordSize == 0 )			// get system features
+	qSysInfo( &systemWordSize, &systemBigEndian );
+    dev	      = new QBuffer( a );		// create device
+    ((QBuffer *)dev)->open( IO_ReadOnly );	// open device
+    owndev    = TRUE;
+    byteorder = BigEndian;			// default byte order
+    printable = FALSE;
+    ver	      = DefaultStreamVersion;
+    noswap    = systemBigEndian;
+
+}
+
 /*!
     Destroys the data stream.
 

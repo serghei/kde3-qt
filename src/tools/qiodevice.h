@@ -132,7 +132,9 @@ public:
     bool	 reset() { return at(0); }
 
     virtual Q_LONG readBlock( char *data, Q_ULONG maxlen ) = 0;
+    virtual Q_LONG read( char *data, Q_ULONG maxlen ) { return readBlock(data, maxlen); }
     virtual Q_LONG writeBlock( const char *data, Q_ULONG len ) = 0;
+    virtual Q_LONG write( const char *data, Q_ULONG len ) { return writeBlock(data, len); }
     virtual Q_LONG readLine( char *data, Q_ULONG maxlen );
     Q_LONG writeBlock( const QByteArray& data );
     virtual QByteArray readAll();

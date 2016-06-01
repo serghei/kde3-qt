@@ -102,6 +102,7 @@ public:
     virtual void setPath( const QString &path );
     virtual QString path()		const;
     virtual QString absPath()	const;
+    virtual QString absolutePath()	const { return absPath(); } // Qt5 compat
     virtual QString canonicalPath()	const;
 
     virtual QString dirName() const;

@@ -1133,3 +1133,9 @@ Q_EXPORT const char *qInstallPathSysconf();
 #  endif
 #endif
 
+
+/*
+ Macro for "deprecated" attribute
+*/
+
+ #define QT_DEPRECATED __attribute__ ((deprecated))

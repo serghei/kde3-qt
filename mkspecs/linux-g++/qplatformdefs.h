@@ -12,8 +12,9 @@
 // 'u_char' and includes <sys/types.h>.  Now the problem is that
 // <sys/types.h> defines 'u_char' only if __USE_BSD is defined.
 // __USE_BSD is defined in <features.h> if _BSD_SOURCE is defined.
-#ifndef _BSD_SOURCE
-#  define _BSD_SOURCE
+// _BSD_SOURCE was deprecated, replaced with _DEFAULT_SOURCE
+#ifndef _DEFAULT_SOURCE
+#  define _DEFAULT_SOURCE
 #endif
 
 // 1) need to reset default environment if _BSD_SOURCE is defined

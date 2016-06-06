@@ -40,16 +40,21 @@
 
 #ifndef QDIR_H
 #define QDIR_H
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
 #ifndef QT_H
 #include "qglobal.h"
+#include "qvaluelist.h"
 #include "qstrlist.h"
+#include "qstringlist.h"
 #include "qfileinfo.h"
 #endif // QT_H
 
 
 #ifndef QT_NO_DIR
-typedef QPtrList<QFileInfo> QFileInfoList;
+typedef QPtrList<QFileInfo> QFileInfoList_qt3 QT_DEPRECATED;
+typedef QValueList<QFileInfo> QFileInfoList;
 typedef QPtrListIterator<QFileInfo> QFileInfoListIterator;
 class QStringList;
 template <class T> class QDeepCopy;
@@ -140,13 +145,19 @@ public:
 				   int filterSpec = DefaultFilter,
 				   int sortSpec   = DefaultSort   ) const;
 
-    virtual const QFileInfoList *entryInfoList( int filterSpec = DefaultFilter,
-						int sortSpec = DefaultSort ) const;
-    virtual const QFileInfoList *entryInfoList( const QString &nameFilter,
-						int filterSpec = DefaultFilter,
-						int sortSpec = DefaultSort ) const;
+    virtual const QFileInfoList_qt3 *entryInfoList_qt3( int filterSpec = DefaultFilter,
+                        int sortSpec = DefaultSort ) const QT_DEPRECATED;
+    virtual QFileInfoList entryInfoList( int filterSpec = DefaultFilter,
+                        int sortSpec = DefaultSort ) const;
 
-    static const QFileInfoList *drives();
+    virtual const QFileInfoList_qt3 *entryInfoList_qt3( const QString &nameFilter,
+						int filterSpec = DefaultFilter,
+                        int sortSpec = DefaultSort ) const QT_DEPRECATED;
+    virtual QFileInfoList entryInfoList( const QString &nameFilter,
+                        int filterSpec = DefaultFilter,
+                        int sortSpec = DefaultSort ) const;
+
+    static const QFileInfoList_qt3 *drives();
 
     virtual bool mkdir( const QString &dirName,
 			bool acceptAbsPath = TRUE ) const;
@@ -199,7 +210,7 @@ private:
 
     QString	dPath;
     QStringList   *fList;
-    QFileInfoList *fiList;
+    QFileInfoList_qt3 *fiList;
     QString	nameFilt;
     FilterSpec	filtS;
     SortSpec	sortS;

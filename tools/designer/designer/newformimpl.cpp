@@ -301,7 +301,7 @@ void NewForm::insertTemplates( QIconView *tView,
 	}
 	if ( !templPath.isEmpty() ) {
 	    QDir dir( templPath  );
-	    const QFileInfoList *filist = dir.entryInfoList( QDir::DefaultFilter, QDir::DirsFirst | QDir::Name );
+        const QFileInfoList_qt3*filist = dir.entryInfoList_qt3( QDir::DefaultFilter, QDir::DirsFirst | QDir::Name );
 	    if ( filist ) {
 		QFileInfoListIterator it( *filist );
 		QFileInfo *fi;

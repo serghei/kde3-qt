@@ -22,7 +22,7 @@ int main( int argc, char ** argv )
     mw.addColumn( "Type" );
     mw.setTreeStepSize( 20 );
 
-    const QFileInfoList* roots = QDir::drives();
+    const QFileInfoList_qt3* roots = QDir::drives();
     QPtrListIterator<QFileInfo> i(*roots);
     QFileInfo* fi;
     while ( (fi = *i) ) {

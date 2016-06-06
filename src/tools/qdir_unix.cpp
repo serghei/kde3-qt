@@ -184,7 +184,7 @@ bool QDir::readDirEntries( const QString &nameFilter,
     if ( !fList ) {
 	fList  = new QStringList;
 	Q_CHECK_PTR( fList );
-	fiList = new QFileInfoList;
+    fiList = new QFileInfoList_qt3;
 	Q_CHECK_PTR( fiList );
 	fiList->setAutoDelete( TRUE );
     } else {
@@ -277,11 +277,11 @@ bool QDir::readDirEntries( const QString &nameFilter,
     return TRUE;
 }
 
-const QFileInfoList * QDir::drives()
+const QFileInfoList_qt3 * QDir::drives()
 {
-    // at most one instance of QFileInfoList is leaked, and this variable
+    // at most one instance of QFileInfoList_qt3 is leaked, and this variable
     // points to that list
-    static QFileInfoList * knownMemoryLeak = 0;
+    static QFileInfoList_qt3 * knownMemoryLeak = 0;
 
     if ( !knownMemoryLeak ) {
 
@@ -291,7 +291,7 @@ const QFileInfoList * QDir::drives()
 #endif // QT_THREAD_SUPPORT
 
 	if ( !knownMemoryLeak ) {
-	    knownMemoryLeak = new QFileInfoList;
+        knownMemoryLeak = new QFileInfoList_qt3;
 	    // non-win32 versions both use just one root directory
 	    knownMemoryLeak->append( new QFileInfo( rootDirPath() ) );
 	}

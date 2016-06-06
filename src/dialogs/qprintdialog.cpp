@@ -283,7 +283,7 @@ static int parsePrintcap( QListView * printers, const QString& fileName )
 static void parseEtcLpPrinters( QListView * printers )
 {
     QDir lp( QString::fromLatin1("/etc/lp/printers") );
-    const QFileInfoList * dirs = lp.entryInfoList();
+    const QFileInfoList_qt3 * dirs = lp.entryInfoList_qt3();
     if ( !dirs )
 	return;
 
@@ -624,7 +624,7 @@ static void parseEtcLpMember( QListView * printers )
     QDir lp( QString::fromLatin1("/etc/lp/member") );
     if ( !lp.exists() )
 	return;
-    const QFileInfoList * dirs = lp.entryInfoList();
+    const QFileInfoList_qt3 * dirs = lp.entryInfoList_qt3();
     if ( !dirs )
 	return;
 
@@ -650,7 +650,7 @@ static void parseSpoolInterface( QListView * printers )
     QDir lp( QString::fromLatin1("/usr/spool/lp/interface") );
     if ( !lp.exists() )
 	return;
-    const QFileInfoList * files = lp.entryInfoList();
+    const QFileInfoList_qt3 * files = lp.entryInfoList_qt3();
     if( !files )
 	return;
 

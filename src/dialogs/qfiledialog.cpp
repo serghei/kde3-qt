@@ -483,7 +483,7 @@ static QString toRootIfNotExists( const QString &path )
     if ( !path.isEmpty() )
         return path;
 
-    const QFileInfoList *drives = QDir::drives();
+    const QFileInfoList_qt3 *drives = QDir::drives();
     Q_ASSERT( drives && !drives->isEmpty() );
     return drives->getFirst()->filePath();
 }
@@ -2564,7 +2564,7 @@ void QFileDialog::init()
     d->paths = new QComboBox( TRUE, this, "directory history/editor" );
     d->paths->setDuplicatesEnabled( FALSE );
     d->paths->setInsertionPolicy( QComboBox::NoInsertion );
-    const QFileInfoList * rootDrives = QDir::drives();
+    const QFileInfoList_qt3 * rootDrives = QDir::drives();
     QFileInfoListIterator it( *rootDrives );
     QFileInfo *fi;
     makeVariables();

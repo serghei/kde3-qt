@@ -206,7 +206,7 @@ void Directory::setOpen( bool o )
 	}
 
 	listView()->setUpdatesEnabled( FALSE );
-	const QFileInfoList * files = thisDir.entryInfoList();
+    const QFileInfoList_qt3* files = thisDir.entryInfoList_qt3();
 	if ( files ) {
 	    QFileInfoListIterator it( *files );
 	    QFileInfo * fi;

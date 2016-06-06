@@ -874,12 +874,28 @@ QStringList QDir::entryList( const QString &nameFilter,
     \sa entryList(), setNameFilter(), setSorting(), setFilter()
 */
 
-const QFileInfoList *QDir::entryInfoList( int filterSpec, int sortSpec ) const
+const QFileInfoList_qt3 *QDir::entryInfoList_qt3( int filterSpec, int sortSpec ) const
 {
     if ( !dirty && filterSpec == (int)DefaultFilter &&
 		   sortSpec   == (int)DefaultSort )
 	return fiList;
-    return entryInfoList( nameFilt, filterSpec, sortSpec );
+    return entryInfoList_qt3( nameFilt, filterSpec, sortSpec );
+}
+
+QFileInfoList QDir::entryInfoList(int filterSpec, int sortSpec) const
+{
+    const QFileInfoList_qt3 *list_qt3 = entryInfoList_qt3(filterSpec, sortSpec);
+    QPtrListIterator<QFileInfo> it(*list_qt3);
+    QFileInfo *fileInfo;
+
+    QFileInfoList list;
+    while((fileInfo = it.current()) != 0)
+    {
+        ++it;
+        list.append(*fileInfo);
+    }
+
+    return list;
 }
 
 /*!
@@ -904,7 +920,7 @@ const QFileInfoList *QDir::entryInfoList( int filterSpec, int sortSpec ) const
     \sa entryList(), setNameFilter(), setSorting(), setFilter()
 */
 
-const QFileInfoList *QDir::entryInfoList( const QString &nameFilter,
+const QFileInfoList_qt3 *QDir::entryInfoList_qt3( const QString &nameFilter,
 					  int filterSpec, int sortSpec ) const
 {
     if ( filterSpec == (int)DefaultFilter )
@@ -916,6 +932,22 @@ const QFileInfoList *QDir::entryInfoList( const QString &nameFilter,
 	return that->fiList;
     else
 	return 0;
+}
+
+QFileInfoList QDir::entryInfoList(const QString &nameFilter, int filterSpec, int sortSpec) const
+{
+    const QFileInfoList_qt3 *list_qt3 = entryInfoList_qt3(nameFilter, filterSpec, sortSpec);
+    QPtrListIterator<QFileInfo> it(*list_qt3);
+    QFileInfo *fileInfo;
+
+    QFileInfoList list;
+    while((fileInfo = it.current()) != 0)
+    {
+        ++it;
+        list.append(*fileInfo);
+    }
+
+    return list;
 }
 
 /*!
@@ -1381,7 +1413,7 @@ void QDir::detach()
 	*fList = QDeepCopy<QStringList>( *fList );
 
     if ( fiList ) {
-	QFileInfoList *newlist = new QFileInfoList( *fiList );
+    QFileInfoList_qt3 *newlist = new QFileInfoList_qt3( *fiList );
 	delete fiList;
 	fiList = newlist;
     }

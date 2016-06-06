@@ -601,7 +601,7 @@ void QtFileIconView::readDir( const QDir &dir )
 
     emit directoryChanged( dir.absPath() );
 
-    const QFileInfoList *filist = dir.entryInfoList( QDir::DefaultFilter, QDir::DirsFirst | QDir::Name );
+    const QFileInfoList_qt3 *filist = dir.entryInfoList_qt3( QDir::DefaultFilter, QDir::DirsFirst | QDir::Name );
 
     emit startReadDir( filist->count() );
 

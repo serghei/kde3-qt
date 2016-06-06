@@ -531,7 +531,7 @@ public:
     iterator append( const T& x ) { detach(); return sh->insert( end(), x ); }
     iterator prepend( const T& x ) { detach(); return sh->insert( begin(), x ); }
 
-    iterator remove( iterator it ) { detach(); return sh->remove( it ); }
+    iterator remove( iterator it ) QT_DEPRECATED { detach(); return sh->remove( it ); }
 
     T& first() { QT_CHECK_INVALID_LIST_ELEMENT; detach(); return sh->node->next->data; }
     const T& first() const { QT_CHECK_INVALID_LIST_ELEMENT; return sh->node->next->data; }

@@ -82,6 +82,7 @@ public:
     QDataStream &operator>>( Q_UINT32 &i );
     QDataStream &operator>>( Q_INT64 &i );
     QDataStream &operator>>( Q_UINT64 &i );
+    QDataStream &operator>>( bool &i );
 #if !defined(Q_OS_WIN64)
     QDataStream &operator>>( Q_LONG &i );
     QDataStream &operator>>( Q_ULONG &i );
@@ -99,6 +100,7 @@ public:
     QDataStream &operator<<( Q_UINT32 i );
     QDataStream &operator<<( Q_INT64 i );
     QDataStream &operator<<( Q_UINT64 i );
+    QDataStream &operator<<( bool i );
 #if !defined(Q_OS_WIN64)
     QDataStream &operator<<( Q_LONG i );
     QDataStream &operator<<( Q_ULONG i );
@@ -169,6 +171,9 @@ inline QDataStream &QDataStream::operator>>( Q_UINT32 &i )
 inline QDataStream &QDataStream::operator>>( Q_UINT64 &i )
 { return *this >> (Q_INT64&)i; }
 
+inline QDataStream &QDataStream::operator>>( bool &i )
+{ Q_INT8 v; *this >> v; i = !!v; return *this; }
+
 #if !defined(Q_OS_WIN64)
 inline QDataStream &QDataStream::operator>>( Q_ULONG &i )
 { return *this >> (Q_LONG&)i; }
@@ -185,6 +190,9 @@ inline QDataStream &QDataStream::operator<<( Q_UINT32 i )
 
 inline QDataStream &QDataStream::operator<<( Q_UINT64 i )
 { return *this << (Q_INT64)i; }
+
+inline QDataStream &QDataStream::operator<<( bool i )
+{ return *this << (Q_INT8)i; }
 
 #if !defined(Q_OS_WIN64)
 inline QDataStream &QDataStream::operator<<( Q_ULONG i )

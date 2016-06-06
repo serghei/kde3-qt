@@ -484,6 +484,7 @@ public:
     iterator insert( iterator it, const T& x ) { detach(); return sh->insert( it, x ); }
     uint remove( const T& x ) { detach(); return sh->remove( x ); }
     uint removeOne( const T& x ) { return remove( x ); } // Qt5 compat
+    void removeLast() { remove( fromLast() ); } // Qt5 compat
     void clear();
 
     // ### 4.0: move out of class

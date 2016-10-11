@@ -1135,7 +1135,11 @@ void QPNGFormat::end(png_structp png, png_infop info)
     consumer->frameDone(QPoint(offx,offy),r);
     consumer->end();
     state = FrameStart;
+#if PNG_LIBPNG_VER_MAJOR >= 1 && PNG_LIBPNG_VER_MINOR >= 5
     unused_data = png_process_data_pause(png, 0);
+#else
+    unused_data = (int)png->buffer_size; // Since libpng doesn't tell us
+#endif
 }
 
 #ifdef PNG_USER_CHUNKS_SUPPORTED
